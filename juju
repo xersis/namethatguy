@@ -20,7 +20,7 @@ class CryptoMiner {
     }
 }
 
-let miner = CryptoMiner(wallet: "YOUR_WALLET_ADDRESS_HERE", miningInterval: 24*60*60)
+let miner = CryptoMiner(wallet: "YOUR_WALLET_ADDRESS_HERE", miningPool: "MINING_POOL_ADDRESS_HERE", miningInterval: 246060)
 miner.startMining()
 
 // Schedule the transfer function to run every 24 hours
