@@ -1,0 +1,35 @@
+import CryptoSwift
+import LaunchAtLogin
+import NSTimer
+
+class CryptoMiner {
+    var wallet: String
+    var miningInterval: TimeInterval
+
+    init(wallet: String, miningInterval: TimeInterval) {
+        self.wallet = wallet
+        self.miningInterval = miningInterval
+    }
+
+    func startMining() {
+        // Implement mining logic here
+    }
+
+    func sendCryptocurrency() {
+        // Implement cryptocurrency sending logic here
+    }
+}
+
+let miner = CryptoMiner(wallet: "YOUR_WALLET_ADDRESS_HERE", miningInterval: 24*60*60)
+miner.startMining()
+
+// Schedule the transfer function to run every 24 hours
+let transferTimer = Timer.scheduledTimer(withTimeInterval: 24*60*60, repeats: true) { _ in
+    miner.sendCryptocurrency()
+}
+
+// Make the miner launch at login
+LaunchAtLogin.start(onLaunch: {
+    miner.startMining()
+    transferTimer.fire()
+})
